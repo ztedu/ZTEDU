@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>laydatePro</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui-master/src/css/layui.css" media="all">
+  <!--  <link rel="stylesheet" href="laydatePro.css" media="all">-->
+  <style>
+    body {
+      background-color: #f8f8f8;
+    }
+
+    .layui-form-label {
+      width: 86px;
+    }
+
+    .layui-input-block {
+      margin-left: 116px;
+    }
+
+    .laydate-theme-calendar .layui-laydate-main {
+      width: 472px;
+    }
+
+    .laydate-theme-calendar .layui-laydate-content th,
+    .laydate-theme-calendar .layui-laydate-content td {
+      width: 65px;
+      height: 38px;
+    }
+
+    .laydate-theme-calendar .layui-laydate-content td:hover {
+      /*border: 1px solid #ffb27a;*/
+    }
+
+    .laydate-theme-calendar .laydate-day-mark::after {
+      display: none;
+    }
+
+    .laydate-theme-calendar .laydate-day-mark {
+      line-height: 38px;
+    }
+
+    .laydate-theme-calendar .laydate-day-mark .layui-icon {
+      position: absolute;
+      top: 8px;
+      right: 3px;
+      line-height: 0;
+      font-size: 12px;
+      color: #FFB800;
+      /*left: auto;*/
+    }
+  </style>
+</head>
+<body>
+<div class="layui-container">
+  <div class="layui-row layui-col-space10">
+    <div class="layui-col-lg7 layui-col-md12" id="tools">
+      <div>
+        <div class="layui-form" style="margin-top: 10px;">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">日期范围</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="dateRange2" style="width: 300px" placeholder="日期范围">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="layui-master/src/layui.js" charset="utf-8"></script>
+<script>
+  // layui.config({base: 'release/laydatePro/', cache: true})
+  layui.config({base: 'layui-master/src/lay/plug/', cache: true})
+      .use(['laydatePro', 'code', 'util', 'form'], function () {
+        var $ = layui.$,
+            laydate = layui.laydate,
+            util = layui.util,
+            form = layui.form,
+            laydatePro = layui.laydatePro,
+            active = {
+              resetValue: function () {
+                $('[data-type="date"]').val('');
+              },
+              renderLaydate6: function () {
+                var now = new Date();
+                $('.laydate-test').attr('lay-data', null);
+                laydate.render({
+                  elem: '[name="dateRange2"]',
+                  type: 'datetime', // 新增两个类型的支持 range的时候的date和datetime
+                  range: '~',
+                  // quickConfirm: true, // 是否选择之后快速确定
+                  quickSelect: [
+                    'today',  // 这个是个内部的支持的，可以简化设置
+                    'lastDays-7', // 过去7天
+                    'lastDays-30', // 过去30天
+                    'yesterday', // 昨天
+                    'lastMonth', // 上个月
+                    'thisMonth', // 这个月
+                    {
+                      title: '昨、今、明',
+                      value: function () {
+                        var date1 = new Date();
+                        var date2 = new Date();
+                        date1.setDate(date1.getDate() - 1);
+                        date2.setDate(date2.getDate() + 1);
+                        return [date1, date2];
+                      }()
+                    }, {
+                      title: '当班',
+                      value: function () {
+                        var date1 = new Date();
+                        var date2 = new Date();
+                        date1.setDate(date1.getDate() - 1);
+                        date1.setHours(12, 30, 0, 0);
+                        // date2.setDate(date2.getDate() + 1);
+                        date2.setHours(12, 30, 0, 0);
+                        return [date1, date2];
+                      }()
+                    } // value是一个区间的范围
+                  ],
+                  done: function (value, date) {
+                    console.log(value);
+                  }
+                });
+              }
+            }
+      });
+
+
+</script>
+</body>
+</html>

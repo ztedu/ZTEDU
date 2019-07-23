@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.everlook.myweb.persistence.dao.system.log.CommSysLogMapper">
+  <resultMap id="BaseResultMap" type="cn.everlook.myweb.persistence.entity.assort.log.CommSysLog">
+    <id column="LOG_ID" property="logId" jdbcType="VARCHAR"/>
+    <result column="TYPE" property="type" jdbcType="VARCHAR"/>
+    <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+    <result column="REMOTE_ADDR" property="remoteAddr" jdbcType="VARCHAR"/>
+    <result column="REQUEST_URI" property="requestUri" jdbcType="VARCHAR"/>
+    <result column="METHOD" property="method" jdbcType="VARCHAR"/>
+    <result column="PARAMS" property="params" jdbcType="VARCHAR"/>
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR"/>
+    <result column="OPERATE_DATE" property="operateDate" jdbcType="TIMESTAMP"/>
+    <result column="TIMEOUT" property="timeout" jdbcType="VARCHAR"/>
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" suffix=")" prefixOverrides="and">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LOG_ID, TYPE, TITLE, REMOTE_ADDR, REQUEST_URI, METHOD, PARAMS, EXCEPTION, OPERATE_DATE,
+    TIMEOUT, USER_ID, USER_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap"
+          parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLogExample">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List"/>
+    from comm_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from comm_sys_log
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from comm_sys_log
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLogExample">
+    delete from comm_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLog">
+    insert into comm_sys_log (LOG_ID, TYPE, TITLE,
+      REMOTE_ADDR, REQUEST_URI, METHOD,
+      PARAMS, EXCEPTION, OPERATE_DATE,
+      TIMEOUT, USER_ID, USER_NAME
+      )
+    values (#{logId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{remoteAddr,jdbcType=VARCHAR}, #{requestUri,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR},
+      #{params,jdbcType=VARCHAR}, #{exception,jdbcType=VARCHAR}, #{operateDate,jdbcType=TIMESTAMP},
+      #{timeout,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLog">
+    insert into comm_sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        LOG_ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="remoteAddr != null">
+        REMOTE_ADDR,
+      </if>
+      <if test="requestUri != null">
+        REQUEST_URI,
+      </if>
+      <if test="method != null">
+        METHOD,
+      </if>
+      <if test="params != null">
+        PARAMS,
+      </if>
+      <if test="exception != null">
+        EXCEPTION,
+      </if>
+      <if test="operateDate != null">
+        OPERATE_DATE,
+      </if>
+      <if test="timeout != null">
+        TIMEOUT,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null">
+        #{operateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeout != null">
+        #{timeout,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLogExample"
+          resultType="java.lang.Integer">
+    select count(*) from comm_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comm_sys_log
+    <set>
+      <if test="record.logId != null">
+        LOG_ID = #{record.logId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remoteAddr != null">
+        REMOTE_ADDR = #{record.remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestUri != null">
+        REQUEST_URI = #{record.requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        METHOD = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null">
+        PARAMS = #{record.params,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exception != null">
+        EXCEPTION = #{record.exception,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateDate != null">
+        OPERATE_DATE = #{record.operateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.timeout != null">
+        TIMEOUT = #{record.timeout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comm_sys_log
+    set LOG_ID = #{record.logId,jdbcType=VARCHAR},
+    TYPE = #{record.type,jdbcType=VARCHAR},
+    TITLE = #{record.title,jdbcType=VARCHAR},
+    REMOTE_ADDR = #{record.remoteAddr,jdbcType=VARCHAR},
+    REQUEST_URI = #{record.requestUri,jdbcType=VARCHAR},
+    METHOD = #{record.method,jdbcType=VARCHAR},
+    PARAMS = #{record.params,jdbcType=VARCHAR},
+    EXCEPTION = #{record.exception,jdbcType=VARCHAR},
+    OPERATE_DATE = #{record.operateDate,jdbcType=TIMESTAMP},
+    TIMEOUT = #{record.timeout,jdbcType=VARCHAR},
+    USER_ID = #{record.userId,jdbcType=VARCHAR},
+    USER_NAME = #{record.userName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause"/>
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLog">
+    update comm_sys_log
+    <set>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteAddr != null">
+        REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUri != null">
+        REQUEST_URI = #{requestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        METHOD = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        PARAMS = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null">
+        EXCEPTION = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null">
+        OPERATE_DATE = #{operateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeout != null">
+        TIMEOUT = #{timeout,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.everlook.myweb.persistence.entity.assort.log.CommSysLog">
+    update comm_sys_log
+    set TYPE = #{type,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      REMOTE_ADDR = #{remoteAddr,jdbcType=VARCHAR},
+      REQUEST_URI = #{requestUri,jdbcType=VARCHAR},
+      METHOD = #{method,jdbcType=VARCHAR},
+      PARAMS = #{params,jdbcType=VARCHAR},
+      EXCEPTION = #{exception,jdbcType=VARCHAR},
+      OPERATE_DATE = #{operateDate,jdbcType=TIMESTAMP},
+      TIMEOUT = #{timeout,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR}
+    where LOG_ID = #{logId,jdbcType=VARCHAR}
+  </update>
+
+  <!--全查询-->
+  <select id="queryAllLogs" resultMap="BaseResultMap"
+          parameterType="cn.everlook.myweb.persistence.entity.vo.system.log.LogVo">
+    select
+    <include refid="Base_Column_List"/>
+    from comm_sys_log
+    <where>
+      <if test="type!=null">
+        and type like concat("%",#{type},"%")
+      </if>
+      <if test="title!=null">
+        and title like concat("%",#{title},"%")
+      </if>
+      <if test="method!=null">
+        and method like concat("%",#{method},"%")
+      </if>
+      <if test="userName!=null">
+        and user_name like concat("%",#{userName},"%")
+      </if>
+      <if test="beginDate!=null and beginDate!=''">
+        <![CDATA[   and DATE_FORMAT(operate_Date, '%Y-%m-%d %H:%i:%s')>=  DATE_FORMAT(#{beginDate}, '%Y-%m-%d %H:%i:%s')   ]]>
+      </if>
+      <if test="endDate!=null and endDate!=''">
+        <![CDATA[  and DATE_FORMAT(operate_Date, '%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d %H:%i:%s')    ]]>
+      </if>
+    </where>
+    order by OPERATE_DATE desc
+  </select>
+
+  <!--清空日志表-->
+  <update id="clearLogs">
+     truncate table comm_sys_log
+  </update>
+
+</mapper>
+

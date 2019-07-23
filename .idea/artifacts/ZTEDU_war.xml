@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ZTEDU:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ZTEDU</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ZTEDU.war">
+      <element id="artifact" artifact-name="ZTEDU:war exploded" />
+    </root>
+  </artifact>
+</component>

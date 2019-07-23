@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.everlook.myweb.persistence.dao.edu.registration.student.ZtStudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent" >
+    <id column="ZT_STUDENT_ID" property="ztStudentId" jdbcType="BIGINT" />
+    <result column="ZT_STUDENT_NAME" property="ztStudentName" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_ID_NUMBER" property="ztStudentIdNumber" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_BIRTHDAY" property="ztStudentBirthday" jdbcType="TIMESTAMP" />
+    <result column="ZT_STUDENT_SEX" property="ztStudentSex" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_NATION" property="ztStudentNation" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_POLITICAL_APPEARANCE" property="ztStudentPoliticalAppearance" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_NATIVE_PLACE" property="ztStudentNativePlace" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_WORK_UNIT" property="ztStudentWorkUnit" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_WORK_TEL" property="ztStudentWorkTel" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_MOBILE_PHONE" property="ztStudentMobilePhone" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_HOME_PHONE" property="ztStudentHomePhone" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_EEI" property="ztStudentEei" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_MAJOR" property="ztStudentMajor" jdbcType="VARCHAR" />
+    <result column="ZT_STUDENT_LEVEL" property="ztStudentLevel" jdbcType="INTEGER" />
+    <result column="ZT_STUDENT_DATE_OF_EXAM" property="ztStudentDateOfExam" jdbcType="TIMESTAMP" />
+    <result column="ZT_STUDENT_REGISTRATION_FEE" property="ztStudentRegistrationFee" jdbcType="VARCHAR" />
+    <result column="ZT_USER_ID" property="ztUserId" jdbcType="INTEGER" />
+    <result column="ZT_BUY_BOOKS" property="ztBuyBooks" jdbcType="VARCHAR" />
+    <result column="ZT_INTRODUCER" property="ztIntroducer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ZT_STUDENT_ID, ZT_STUDENT_NAME, ZT_STUDENT_ID_NUMBER, ZT_STUDENT_BIRTHDAY, ZT_STUDENT_SEX,
+    ZT_STUDENT_NATION, ZT_STUDENT_POLITICAL_APPEARANCE, ZT_STUDENT_NATIVE_PLACE, ZT_STUDENT_WORK_UNIT,
+    ZT_STUDENT_WORK_TEL, ZT_STUDENT_MOBILE_PHONE, ZT_STUDENT_HOME_PHONE, ZT_STUDENT_EEI,
+    ZT_STUDENT_MAJOR, ZT_STUDENT_LEVEL, ZT_STUDENT_DATE_OF_EXAM, ZT_STUDENT_REGISTRATION_FEE,
+    ZT_USER_ID, ZT_BUY_BOOKS, ZT_INTRODUCER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from zt_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from zt_student
+    where ZT_STUDENT_ID = #{ztStudentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from zt_student
+    where ZT_STUDENT_ID = #{ztStudentId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudentExample" >
+    delete from zt_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent" >
+    insert into zt_student (ZT_STUDENT_ID, ZT_STUDENT_NAME, ZT_STUDENT_ID_NUMBER,
+      ZT_STUDENT_BIRTHDAY, ZT_STUDENT_SEX, ZT_STUDENT_NATION,
+      ZT_STUDENT_POLITICAL_APPEARANCE, ZT_STUDENT_NATIVE_PLACE,
+      ZT_STUDENT_WORK_UNIT, ZT_STUDENT_WORK_TEL, ZT_STUDENT_MOBILE_PHONE,
+      ZT_STUDENT_HOME_PHONE, ZT_STUDENT_EEI, ZT_STUDENT_MAJOR,
+      ZT_STUDENT_LEVEL, ZT_STUDENT_DATE_OF_EXAM,
+      ZT_STUDENT_REGISTRATION_FEE, ZT_USER_ID, ZT_BUY_BOOKS,
+      ZT_INTRODUCER)
+    values (#{ztStudentId,jdbcType=BIGINT}, #{ztStudentName,jdbcType=VARCHAR}, #{ztStudentIdNumber,jdbcType=VARCHAR},
+      #{ztStudentBirthday,jdbcType=TIMESTAMP}, #{ztStudentSex,jdbcType=VARCHAR}, #{ztStudentNation,jdbcType=VARCHAR},
+      #{ztStudentPoliticalAppearance,jdbcType=VARCHAR}, #{ztStudentNativePlace,jdbcType=VARCHAR},
+      #{ztStudentWorkUnit,jdbcType=VARCHAR}, #{ztStudentWorkTel,jdbcType=VARCHAR}, #{ztStudentMobilePhone,jdbcType=VARCHAR},
+      #{ztStudentHomePhone,jdbcType=VARCHAR}, #{ztStudentEei,jdbcType=VARCHAR}, #{ztStudentMajor,jdbcType=VARCHAR},
+      #{ztStudentLevel,jdbcType=INTEGER}, #{ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      #{ztStudentRegistrationFee,jdbcType=VARCHAR}, #{ztUserId,jdbcType=INTEGER}, #{ztBuyBooks,jdbcType=VARCHAR},
+      #{ztIntroducer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent" >
+    insert into zt_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ztStudentId != null" >
+        ZT_STUDENT_ID,
+      </if>
+      <if test="ztStudentName != null" >
+        ZT_STUDENT_NAME,
+      </if>
+      <if test="ztStudentIdNumber != null" >
+        ZT_STUDENT_ID_NUMBER,
+      </if>
+      <if test="ztStudentBirthday != null" >
+        ZT_STUDENT_BIRTHDAY,
+      </if>
+      <if test="ztStudentSex != null" >
+        ZT_STUDENT_SEX,
+      </if>
+      <if test="ztStudentNation != null" >
+        ZT_STUDENT_NATION,
+      </if>
+      <if test="ztStudentPoliticalAppearance != null" >
+        ZT_STUDENT_POLITICAL_APPEARANCE,
+      </if>
+      <if test="ztStudentNativePlace != null" >
+        ZT_STUDENT_NATIVE_PLACE,
+      </if>
+      <if test="ztStudentWorkUnit != null" >
+        ZT_STUDENT_WORK_UNIT,
+      </if>
+      <if test="ztStudentWorkTel != null" >
+        ZT_STUDENT_WORK_TEL,
+      </if>
+      <if test="ztStudentMobilePhone != null" >
+        ZT_STUDENT_MOBILE_PHONE,
+      </if>
+      <if test="ztStudentHomePhone != null" >
+        ZT_STUDENT_HOME_PHONE,
+      </if>
+      <if test="ztStudentEei != null" >
+        ZT_STUDENT_EEI,
+      </if>
+      <if test="ztStudentMajor != null" >
+        ZT_STUDENT_MAJOR,
+      </if>
+      <if test="ztStudentLevel != null" >
+        ZT_STUDENT_LEVEL,
+      </if>
+      <if test="ztStudentDateOfExam != null" >
+        ZT_STUDENT_DATE_OF_EXAM,
+      </if>
+      <if test="ztStudentRegistrationFee != null" >
+        ZT_STUDENT_REGISTRATION_FEE,
+      </if>
+      <if test="ztUserId != null" >
+        ZT_USER_ID,
+      </if>
+      <if test="ztBuyBooks != null" >
+        ZT_BUY_BOOKS,
+      </if>
+      <if test="ztIntroducer != null" >
+        ZT_INTRODUCER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ztStudentId != null" >
+        #{ztStudentId,jdbcType=BIGINT},
+      </if>
+      <if test="ztStudentName != null" >
+        #{ztStudentName,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentIdNumber != null" >
+        #{ztStudentIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentBirthday != null" >
+        #{ztStudentBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ztStudentSex != null" >
+        #{ztStudentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentNation != null" >
+        #{ztStudentNation,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentPoliticalAppearance != null" >
+        #{ztStudentPoliticalAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentNativePlace != null" >
+        #{ztStudentNativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentWorkUnit != null" >
+        #{ztStudentWorkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentWorkTel != null" >
+        #{ztStudentWorkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentMobilePhone != null" >
+        #{ztStudentMobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentHomePhone != null" >
+        #{ztStudentHomePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentEei != null" >
+        #{ztStudentEei,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentMajor != null" >
+        #{ztStudentMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentLevel != null" >
+        #{ztStudentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ztStudentDateOfExam != null" >
+        #{ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ztStudentRegistrationFee != null" >
+        #{ztStudentRegistrationFee,jdbcType=VARCHAR},
+      </if>
+      <if test="ztUserId != null" >
+        #{ztUserId,jdbcType=INTEGER},
+      </if>
+      <if test="ztBuyBooks != null" >
+        #{ztBuyBooks,jdbcType=VARCHAR},
+      </if>
+      <if test="ztIntroducer != null" >
+        #{ztIntroducer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudentExample" resultType="java.lang.Integer" >
+    select count(*) from zt_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update zt_student
+    <set >
+      <if test="record.ztStudentId != null" >
+        ZT_STUDENT_ID = #{record.ztStudentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ztStudentName != null" >
+        ZT_STUDENT_NAME = #{record.ztStudentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentIdNumber != null" >
+        ZT_STUDENT_ID_NUMBER = #{record.ztStudentIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentBirthday != null" >
+        ZT_STUDENT_BIRTHDAY = #{record.ztStudentBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ztStudentSex != null" >
+        ZT_STUDENT_SEX = #{record.ztStudentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentNation != null" >
+        ZT_STUDENT_NATION = #{record.ztStudentNation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentPoliticalAppearance != null" >
+        ZT_STUDENT_POLITICAL_APPEARANCE = #{record.ztStudentPoliticalAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentNativePlace != null" >
+        ZT_STUDENT_NATIVE_PLACE = #{record.ztStudentNativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentWorkUnit != null" >
+        ZT_STUDENT_WORK_UNIT = #{record.ztStudentWorkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentWorkTel != null" >
+        ZT_STUDENT_WORK_TEL = #{record.ztStudentWorkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentMobilePhone != null" >
+        ZT_STUDENT_MOBILE_PHONE = #{record.ztStudentMobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentHomePhone != null" >
+        ZT_STUDENT_HOME_PHONE = #{record.ztStudentHomePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentEei != null" >
+        ZT_STUDENT_EEI = #{record.ztStudentEei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentMajor != null" >
+        ZT_STUDENT_MAJOR = #{record.ztStudentMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztStudentLevel != null" >
+        ZT_STUDENT_LEVEL = #{record.ztStudentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.ztStudentDateOfExam != null" >
+        ZT_STUDENT_DATE_OF_EXAM = #{record.ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ztStudentRegistrationFee != null" >
+        ZT_STUDENT_REGISTRATION_FEE = #{record.ztStudentRegistrationFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztUserId != null" >
+        ZT_USER_ID = #{record.ztUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ztBuyBooks != null" >
+        ZT_BUY_BOOKS = #{record.ztBuyBooks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztIntroducer != null" >
+        ZT_INTRODUCER = #{record.ztIntroducer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update zt_student
+    set ZT_STUDENT_ID = #{record.ztStudentId,jdbcType=BIGINT},
+      ZT_STUDENT_NAME = #{record.ztStudentName,jdbcType=VARCHAR},
+      ZT_STUDENT_ID_NUMBER = #{record.ztStudentIdNumber,jdbcType=VARCHAR},
+      ZT_STUDENT_BIRTHDAY = #{record.ztStudentBirthday,jdbcType=TIMESTAMP},
+      ZT_STUDENT_SEX = #{record.ztStudentSex,jdbcType=VARCHAR},
+      ZT_STUDENT_NATION = #{record.ztStudentNation,jdbcType=VARCHAR},
+      ZT_STUDENT_POLITICAL_APPEARANCE = #{record.ztStudentPoliticalAppearance,jdbcType=VARCHAR},
+      ZT_STUDENT_NATIVE_PLACE = #{record.ztStudentNativePlace,jdbcType=VARCHAR},
+      ZT_STUDENT_WORK_UNIT = #{record.ztStudentWorkUnit,jdbcType=VARCHAR},
+      ZT_STUDENT_WORK_TEL = #{record.ztStudentWorkTel,jdbcType=VARCHAR},
+      ZT_STUDENT_MOBILE_PHONE = #{record.ztStudentMobilePhone,jdbcType=VARCHAR},
+      ZT_STUDENT_HOME_PHONE = #{record.ztStudentHomePhone,jdbcType=VARCHAR},
+      ZT_STUDENT_EEI = #{record.ztStudentEei,jdbcType=VARCHAR},
+      ZT_STUDENT_MAJOR = #{record.ztStudentMajor,jdbcType=VARCHAR},
+      ZT_STUDENT_LEVEL = #{record.ztStudentLevel,jdbcType=INTEGER},
+      ZT_STUDENT_DATE_OF_EXAM = #{record.ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      ZT_STUDENT_REGISTRATION_FEE = #{record.ztStudentRegistrationFee,jdbcType=VARCHAR},
+      ZT_USER_ID = #{record.ztUserId,jdbcType=INTEGER},
+      ZT_BUY_BOOKS = #{record.ztBuyBooks,jdbcType=VARCHAR},
+      ZT_INTRODUCER = #{record.ztIntroducer,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent" >
+    update zt_student
+    <set >
+      <if test="ztStudentName != null" >
+        ZT_STUDENT_NAME = #{ztStudentName,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentIdNumber != null" >
+        ZT_STUDENT_ID_NUMBER = #{ztStudentIdNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentBirthday != null" >
+        ZT_STUDENT_BIRTHDAY = #{ztStudentBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ztStudentSex != null" >
+        ZT_STUDENT_SEX = #{ztStudentSex,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentNation != null" >
+        ZT_STUDENT_NATION = #{ztStudentNation,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentPoliticalAppearance != null" >
+        ZT_STUDENT_POLITICAL_APPEARANCE = #{ztStudentPoliticalAppearance,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentNativePlace != null" >
+        ZT_STUDENT_NATIVE_PLACE = #{ztStudentNativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentWorkUnit != null" >
+        ZT_STUDENT_WORK_UNIT = #{ztStudentWorkUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentWorkTel != null" >
+        ZT_STUDENT_WORK_TEL = #{ztStudentWorkTel,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentMobilePhone != null" >
+        ZT_STUDENT_MOBILE_PHONE = #{ztStudentMobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentHomePhone != null" >
+        ZT_STUDENT_HOME_PHONE = #{ztStudentHomePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentEei != null" >
+        ZT_STUDENT_EEI = #{ztStudentEei,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentMajor != null" >
+        ZT_STUDENT_MAJOR = #{ztStudentMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="ztStudentLevel != null" >
+        ZT_STUDENT_LEVEL = #{ztStudentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ztStudentDateOfExam != null" >
+        ZT_STUDENT_DATE_OF_EXAM = #{ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ztStudentRegistrationFee != null" >
+        ZT_STUDENT_REGISTRATION_FEE = #{ztStudentRegistrationFee,jdbcType=VARCHAR},
+      </if>
+      <if test="ztUserId != null" >
+        ZT_USER_ID = #{ztUserId,jdbcType=INTEGER},
+      </if>
+      <if test="ztBuyBooks != null" >
+        ZT_BUY_BOOKS = #{ztBuyBooks,jdbcType=VARCHAR},
+      </if>
+      <if test="ztIntroducer != null" >
+        ZT_INTRODUCER = #{ztIntroducer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ZT_STUDENT_ID = #{ztStudentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent" >
+    update zt_student
+    set ZT_STUDENT_NAME = #{ztStudentName,jdbcType=VARCHAR},
+      ZT_STUDENT_ID_NUMBER = #{ztStudentIdNumber,jdbcType=VARCHAR},
+      ZT_STUDENT_BIRTHDAY = #{ztStudentBirthday,jdbcType=TIMESTAMP},
+      ZT_STUDENT_SEX = #{ztStudentSex,jdbcType=VARCHAR},
+      ZT_STUDENT_NATION = #{ztStudentNation,jdbcType=VARCHAR},
+      ZT_STUDENT_POLITICAL_APPEARANCE = #{ztStudentPoliticalAppearance,jdbcType=VARCHAR},
+      ZT_STUDENT_NATIVE_PLACE = #{ztStudentNativePlace,jdbcType=VARCHAR},
+      ZT_STUDENT_WORK_UNIT = #{ztStudentWorkUnit,jdbcType=VARCHAR},
+      ZT_STUDENT_WORK_TEL = #{ztStudentWorkTel,jdbcType=VARCHAR},
+      ZT_STUDENT_MOBILE_PHONE = #{ztStudentMobilePhone,jdbcType=VARCHAR},
+      ZT_STUDENT_HOME_PHONE = #{ztStudentHomePhone,jdbcType=VARCHAR},
+      ZT_STUDENT_EEI = #{ztStudentEei,jdbcType=VARCHAR},
+      ZT_STUDENT_MAJOR = #{ztStudentMajor,jdbcType=VARCHAR},
+      ZT_STUDENT_LEVEL = #{ztStudentLevel,jdbcType=INTEGER},
+      ZT_STUDENT_DATE_OF_EXAM = #{ztStudentDateOfExam,jdbcType=TIMESTAMP},
+      ZT_STUDENT_REGISTRATION_FEE = #{ztStudentRegistrationFee,jdbcType=VARCHAR},
+      ZT_USER_ID = #{ztUserId,jdbcType=INTEGER},
+      ZT_BUY_BOOKS = #{ztBuyBooks,jdbcType=VARCHAR},
+      ZT_INTRODUCER = #{ztIntroducer,jdbcType=VARCHAR}
+    where ZT_STUDENT_ID = #{ztStudentId,jdbcType=BIGINT}
+  </update>
+
+    <!--全查询-->
+  <select id="queryAllStudents" resultMap="BaseResultMap"
+          parameterType="cn.everlook.myweb.persistence.entity.assort.edu.registration.ZtStudent">
+    select
+    <include refid="Base_Column_List"/>
+    from zt_student
+    <where>
+      <if test="ztStudentName!=null">
+        and ztStudentName=#{ztStudentName}
+      </if>
+    </where>
+  </select>
+
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+  <!-- 启动注解驱动的spring mvc 功能 -->
+  <!-- 开启@RequestMapping 注解扫描 spring 3.2后使用) 请求到处理器的映射-->
+  <mvc:annotation-driven/>
+  <context:annotation-config/>
+
+  <!--<mvc:default-servlet-handler/>-->
+
+  <!-- 启动对@AspectJ注解的支持 -->
+  <aop:aspectj-autoproxy/>
+
+  <!--resources元素指示Spring MVC哪些静态资源需要单独处理（不通过dispatcher servlet）-->
+  <!--注意如果没有annotation-driven，resources元素会阻止任意控制器被调用。-->
+  <mvc:resources location="/component/mustache/" mapping="/mustache/**"/>
+  <mvc:resources location="/component/layuiAdmin.std.v1.2.1/dist/layuiadmin/" mapping="/layuiadmin/**"/>
+  <mvc:resources location="/component/layuiAdmin.std.v1.2.1/dist/views/" mapping="/layuiview/**"/>
+  <mvc:resources location="/component/tinymce/" mapping="/tinymce/**"/>
+  <mvc:resources location="/component/nprogress/" mapping="/nprogress/**"/>
+  <mvc:resources location="/component/jquery/" mapping="/jquery/**"/>
+  <mvc:resources location="/component/bootstrap/" mapping="/bootstrap/**"/>
+  <mvc:resources location="/component/fontawesome/" mapping="/fontawesome/**"/>
+  <mvc:resources location="/component/kartik/" mapping="/kartik/**"/>
+  <mvc:resources location="/error/" mapping="/error/**"/>
+  <mvc:resources location="/resources/" mapping="/res/**"/>
+  <mvc:resources location="/component/vue/" mapping="/vue/**"/>
+
+
+  <!--配置自定义的拦截器-->
+  <!--<mvc:interceptors>-->
+  <!--<bean class="cn.everlook.myweb.commons.common.HttpInterceptor"/>-->
+  <!--</mvc:interceptors>-->
+
+
+  <!-- 启动包扫描功能 -->
+  <context:component-scan base-package="cn.everlook.myweb.web.controller"/>
+  <context:component-scan base-package="cn.everlook.myweb.service"/>
+  <context:component-scan base-package="cn.everlook.myweb.shiro"/>
+  <context:component-scan base-package="cn.everlook.myweb.aop"/>
+  <context:component-scan base-package="cn.everlook.myweb.annotation"/>
+  <context:component-scan base-package="cn.everlook.myweb.persistence"/>
+
+
+  <!--开启aop代理-->
+  <aop:config proxy-target-class="true"/>
+  <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <property name="securityManager" ref="securityManager"/>
+  </bean>
+
+
+  <bean class="cn.everlook.myweb.commons.common.ApplicationContextHelper" lazy-init="false"/>
+
+  <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+
+  <bean class="cn.everlook.myweb.commons.common.SpringExceptionResolver"/>
+
+  <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+
+  <!--为每个json视图controller配置一个jsonView-->
+  <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+  <!--使用@ResponseBody注解,将Java对象解析为json格式,返回到body-->
+  <!--<bean id="mappingJackson2HttpMessageConverter"-->
+  <!--class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+  <!--<property name="supportedMediaTypes">-->
+  <!--<list>-->
+  <!--<value>text/html;charset=UTF-8</value>-->
+  <!--<value>text/json;charset=UTF-8</value>-->
+  <!--<value>application/json;charset=UTF-8</value>-->
+  <!--</list>-->
+  <!--</property>-->
+  <!--</bean>-->
+
+  <bean id="taskExecutor"
+        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    <property name="corePoolSize" value="5"/>
+    <property name="maxPoolSize" value="10"/>
+    <property name="WaitForTasksToCompleteOnShutdown" value="true"/>
+  </bean>
+
+
+  <!-- 配置视图渲染器 -->
+  <!--对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+  <!-- 将视图名 渲染后视图的前缀 -->
+  <!-- 渲染后视图的后缀 -->
+  <!-- 例：视图名为:hello   渲染后：/themes/lf/pc/app/hello.jsp 该页面-->
+  <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/themes/lf/pc/app/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
+
+  <!-- 配置文件上传类型解析器 multipartResolver-->
+  <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容，默认为ISO-8859-1 -->
+    <property name="defaultEncoding">
+      <value>UTF-8</value>
+    </property>
+    <!-- 上传文件大小上限，单位为字节, 注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+    <property name="maxUploadSize">
+      <value>17367648787</value>
+    </property>
+    <!-- 内存中的最大值 -->
+    <property name="maxInMemorySize">
+      <value>40960</value>
+    </property>
+  </bean>
+
+    <!-- 注册XmlViewResolver，用于iReport & JasperReports报表生成 -->
+  <bean id="jasperReportResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+    <property name="order">
+      <value>0</value>
+    </property>
+    <property name="location">
+      <value>WEB-INF/jasper/jasper-defs.xml</value>
+    </property>
+
+  </bean>
+
+  <mvc:interceptors>
+    <!-- 如果有多个拦截器，则按照顺序进行配置 -->
+    <mvc:interceptor>
+      <!-- /**表示所有URL和子URL路径 -->
+      <mvc:mapping path="/**"/>
+      <!-- 配置自定义的文件上传类型限制拦截器 -->
+      <bean class="cn.everlook.myweb.commons.filter.fileAbout.FileTypeInterceptor"/>
+    </mvc:interceptor>
+
+    <mvc:interceptor>
+      <mvc:mapping path="/**"/>
+      <bean class="cn.everlook.myweb.commons.filter.fileAbout.FileUploadInterceptor">
+        <!-- 设定限制的文件上传大小 -->
+        <property name="maxSize" value="10490000"/>
+      </bean>
+    </mvc:interceptor>
+
+  </mvc:interceptors>
+  <!--5242880-->
+
+
+</beans>

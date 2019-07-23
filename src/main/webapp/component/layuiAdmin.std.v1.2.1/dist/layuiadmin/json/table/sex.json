@@ -1,0 +1,32 @@
+[
+      {
+        "id": 1,
+        "name": "性别",
+        "type": "sex",
+        "code": "0",
+        "value": "女",
+        "orderNum": 0,
+        "remark": null,
+        "delFlag": 0
+      },
+      {
+        "id": 2,
+        "name": "性别",
+        "type": "sex",
+        "code": "1",
+        "value": "男",
+        "orderNum": 1,
+        "remark": "string",
+        "delFlag": 0
+      },
+      {
+        "id": 3,
+        "name": "性别",
+        "type": "string",
+        "code": "string",
+        "value": "未知",
+        "orderNum": 1,
+        "remark": "string",
+        "delFlag": 0
+      }
+    ]

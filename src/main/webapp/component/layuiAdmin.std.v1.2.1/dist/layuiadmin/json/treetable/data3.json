@@ -1,0 +1,141 @@
+[
+  {
+    "id": 2,
+    "name": "开发部",
+    "open": true,
+    "checked": false,
+    "children": [
+      {
+        "id": 5,
+        "name": "开发一部",
+        "open": true,
+        "checked": false,
+        "children": [
+          {
+            "id": 7,
+            "name": "一组",
+            "open": false,
+            "checked": false,
+            "pid": 1,
+            "children": []
+          },
+          {
+            "id": 8,
+            "name": "二组",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 9,
+            "name": "三组",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 10,
+            "name": "四组",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 11,
+            "name": "五组1",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 12,
+            "name": "六组",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 13,
+            "name": "五组2",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 14,
+            "name": "五组3",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 15,
+            "name": "五组4",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 16,
+            "name": "五组5",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 17,
+            "name": "五组6",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 18,
+            "name": "五组7",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 19,
+            "name": "五组8",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 20,
+            "name": "五组9",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 21,
+            "name": "五组10",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 22,
+            "pid": 5,
+            "name": "五组11",
+            "open": false,
+            "checked": false
+          },
+          {
+            "id": 23,
+            "name": "五组12",
+            "open": false,
+            "checked": false
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "开发二部",
+        "open": true,
+        "checked": false
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "运行部",
+    "open": true,
+    "checked": false
+  },
+  {
+    "id": 4,
+    "name": "市场部",
+    "open": true,
+    "checked": false
+  }
+]
